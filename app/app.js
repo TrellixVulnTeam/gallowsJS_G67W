@@ -28,10 +28,9 @@ let ctx = canvas.getContext('2d')
 ctx.strokeStyle = 'rgb('+(150 - Math.random() * 80)+','+(150 - Math.random() * 50)+','+(150 - Math.random() * 50)+')'
 ctx.lineWidth = 6
 
-
-
 $('.answerArea')[0].innerText = answer
 $('.resultText')[2].innerText = word
+
 
 function clear() {
   setTimeout(() => {
@@ -52,69 +51,67 @@ function winning() {
 function losing() {
   if (!isHit) {
     motion--
-
-      if(motion == 8) {
-        ctx.beginPath()
-        ctx.moveTo(100,370)
-        ctx.lineTo(100,20)
-        ctx.stroke()
-      }
-      if(motion == 7) {
-        ctx.beginPath()
-        ctx.moveTo(100,20)
-        ctx.lineTo(300,20)
-        ctx.stroke()
-      }
-      if(motion === 6) {
-        ctx.beginPath()
-        ctx.moveTo(250,20)
-        ctx.lineTo(250,70)
-        ctx.stroke()
-      }
-      if(motion === 5) {
-        ctx.beginPath()
-        ctx.arc(251,90,20,Math.PI * 1.5,Math.PI * 3.5,false)
-        ctx.stroke()
-      }
-      if(motion === 4) {
-        ctx.beginPath()
-        ctx.moveTo(251,110)
-        ctx.lineTo(251,200)
-        ctx.stroke()
-      }
-      if(motion === 3) {
-        ctx.beginPath()
-        ctx.moveTo(251,110)
-        ctx.lineTo(231,150)
-        ctx.stroke()
-      }
-      if(motion === 2) {
-        ctx.beginPath()
-        ctx.moveTo(251,110)
-        ctx.lineTo(270,150)
-        ctx.stroke()
-      }
-      if(motion === 1) {
-        ctx.beginPath()
-        ctx.moveTo(251,200)
-        ctx.lineTo(231,240)
-        ctx.stroke()  
-      }
-      if(motion === 0) {
-        ctx.beginPath()
-        ctx.moveTo(251,200)
-        ctx.lineTo(271,240)
-        ctx.stroke()
-        ctx.beginPath()
-        ctx.fillStyle = 'red'
-        moveTo(250,70)
-        ctx.arc(251,90,20,Math.PI * 1.5,Math.PI * 3.5,false)
-        ctx.fill()
-        $('.resultText')[0].innerText = `Вы проиграли`
-        pastLetters = []
-      }
+    if(motion == 8) {
+      ctx.beginPath()
+      ctx.moveTo(100,370)
+      ctx.lineTo(100,20)
+      ctx.stroke()
+    }
+    if(motion == 7) {
+      ctx.beginPath()
+      ctx.moveTo(100,20)
+      ctx.lineTo(300,20)
+      ctx.stroke()
+    }
+    if(motion === 6) {
+      ctx.beginPath()
+      ctx.moveTo(250,20)
+      ctx.lineTo(250,70)
+      ctx.stroke()
+    }
+    if(motion === 5) {
+      ctx.beginPath()
+      ctx.arc(251,90,20,Math.PI * 1.5,Math.PI * 3.5,false)
+      ctx.stroke()
+    }
+    if(motion === 4) {
+      ctx.beginPath()
+      ctx.moveTo(251,110)
+      ctx.lineTo(251,200)
+      ctx.stroke()
+    }
+    if(motion === 3) {
+      ctx.beginPath()
+      ctx.moveTo(251,110)
+      ctx.lineTo(231,150)
+      ctx.stroke()
+    }
+    if(motion === 2) {
+      ctx.beginPath()
+      ctx.moveTo(251,110)
+      ctx.lineTo(270,150)
+      ctx.stroke()
+    }
+    if(motion === 1) {
+      ctx.beginPath()
+      ctx.moveTo(251,200)
+      ctx.lineTo(231,240)
+      ctx.stroke()  
+    }
+    if(motion === 0) {
+      ctx.beginPath()
+      ctx.moveTo(251,200)
+      ctx.lineTo(271,240)
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.fillStyle = 'red'
+      moveTo(250,70)
+      ctx.arc(251,90,20,Math.PI * 1.5,Math.PI * 3.5,false)
+      ctx.fill()
+      $('.resultText')[0].innerText = `Вы проиграли`
+      pastLetters = []
+    }
     $('.resultText')[0].innerText = `Ошибка! Осталось ${motion} попыток`
-
   }
 }
 
@@ -133,7 +130,6 @@ function game() {
       if (pastLetters.includes(input.value)) {
         $('.resultText')[0].innerText = 'такую букву уже вводили!'
       } else {
-
         pastLetters.push(input.value)
       $('.resultText')[0].innerText = 'проверяем..'
       setTimeout(() => {
@@ -152,17 +148,13 @@ function game() {
       setTimeout(() => {
         losing()
       }, 900);
-
       }
-      
     }
   } else {
     $('.resultText')[0].innerText = 'не осталось попыток!'
   }
   
 }
-
-
 
 button.click(() => {
   game()
