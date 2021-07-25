@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+  <div class="container-fluid"><div class="wrap bg-dark"></div></div>
+  <div class="container">
+    <div class="row">
+      <div class="col text-center"><h2>Учим Canvas и тренируемся с Функциями</h2></div>
+    </div>
+  </div>
+  <div class="container-fluid"><div class="wrap bg-dark"></div></div>
+  <div class="container">
+      <div class="col text-center"><h3>Игра Виселица</h3></div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 canvas-box">
+        <div class="answer-box">
+          <p class='answerArea'></p>
+        </div>
+        <canvas id="canvas" height="400px" width="400px"></canvas>
+      </div>
+      <div class="col-md-4 input-box">
+        <div class="input-group mb-3">
+          <label for="inputSymbol" class="form-label">Введите букву</label>
+          <input type="text" class="form-control" id="inputSymbol" placeholder="Буква" aria-label="Symbol" aria-describedby="button-addon2" onkeypress="noDigits(event)">
+          <button class="btn btn-danger" id="button-addon2" type="button">Пуск</button>
+          <div class="result-box">
+            <p class="resultText"></p>
+          </div>
+          <div class="result">
+            <p class="resultText">Ответ:</p>
+          </div>
+          <div class="result">
+            <p class="resultText"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
