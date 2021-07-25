@@ -43,6 +43,7 @@ function winning() {
     if (remainingLength === 0) { 
       $('.resultText')[0].innerText = 'Вы победили!';
       pastLetters = []
+      aliveMan()
     }
     
   }, 900); 
@@ -114,6 +115,28 @@ function losing() {
     $('.resultText')[0].innerText = `Ошибка! Осталось ${motion} попыток`
   }
 }
+
+function aliveMan() {
+  ctx.fillStyle = '#d1d0d0'
+  ctx.fillRect(200,65,100,200)
+  ctx.beginPath()
+  // ctx.cleatRect(250,70,100,200)
+  ctx.strokeStyle = 'green'
+  ctx.moveTo(280,370)
+  ctx.lineTo(300,330)
+  ctx.lineTo(320,370)
+  ctx.moveTo(300,330)
+  ctx.lineTo(300,240)
+  ctx.moveTo(300,240)
+  ctx.lineTo(280,300)
+  ctx.moveTo(300,245)
+  ctx.lineTo(330,240)
+  ctx.lineTo(340,200)
+  ctx.moveTo(320,220)
+  ctx.arc(300,220,20,0,Math.PI * 2, false)
+  ctx.stroke()
+}
+
 
 function noDigits(event) {
   if ("1234567890`~!@#$%^&*()_+=-\\/., ".indexOf(event.key) != -1)
