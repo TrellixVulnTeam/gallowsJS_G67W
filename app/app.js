@@ -185,6 +185,15 @@ button.click(() => {
   winning()
 })
 
+$(document).ready( () => {
+  $('#inputSymbol').keydown((e) => {
+    if (e.keyCode === 13) {
+      game()
+      clear() 
+      winning()
+    }
+  })
+})
 
 
 
