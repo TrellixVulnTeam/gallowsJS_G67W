@@ -32,3 +32,55 @@
     p
         font-size: 12px
         color: $light
+
+.map-box
+    display: flex
+    height: 400px
+    align-items: center
+    justify-content: center
+.map
+    width: 100%
+    height: auto
+.map-rezult
+    padding: 10px
+    p
+        font-size: 12px
+
+@keyframes appear 
+	0%
+		opacity: .8
+		transform: scale(.5, .5)
+	
+	70%
+		opacity: .3
+		transform: scale(1, 1)
+	
+	100%
+		opacity: 0
+		transform: scale(.5, .5)
+	
+
+@-webkit-keyframes appear 
+	0%
+		opacity: .8
+		-webkit-transform: scale(.5, .5)
+	
+	70%
+		opacity: .3
+		-webkit-transform: scale(1, 1)
+	
+	100%
+		opacity: 0
+		-webkit-transform: scale(.5, .5)
+	
+
+.cursor 
+	position: fixed
+	width: 30px
+	height: 30px
+	margin: 0
+    padding: 0
+	border-radius: 50%
+	background: #ef2c68
+	animation: appear .2s
+	-webkit-animation: appear .2s

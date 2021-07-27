@@ -1,3 +1,6 @@
+// Игра Виселица
+// __________________________________________________
+
 let sentence = "Кант Хроника Зал Галера Балл Вес Кафель  Знак Фильтр Башня Кондитер Омар Чан Пламя  Банк Тетерев Муж Камбала Груз Кино Лаваш Калач Геолог Бальзам Бревно Жердь Борец Самовар Карабин Подлокотник Барак Мотор Шарж Сустав Амфитеатр Скворечник Подлодка Затычка Ресница Спичка Кабан Муфта Синоптик Характер Мафиози Фундамент Бумажник Библиофил Дрожжи Казино Конечность Пробор Дуст Комбинация Мешковина Процессор Крышка Сфинкс Пассатижи Фунт Кружево Агитатор Формуляр  Прокол Абзац Караван Леденец Кашпо Баркас Кардан Вращение Заливное Метрдотель Клавиатура Радиатор Сегмент Обещание Магнитофон Кордебалет Заварушка " 
 let words = sentence
             .split(' ')
@@ -29,7 +32,7 @@ ctx.strokeStyle = 'rgb('+(150 - Math.random() * 80)+','+(150 - Math.random() * 5
 ctx.lineWidth = 6
 
 $('.answerArea')[0].innerText = answer
-$('.resultText')[2].innerText = word
+// $('.resultText')[2].innerText = word
 
 
 function clear() {
@@ -153,24 +156,24 @@ function game() {
       if (pastLetters.includes(input.value)) {
         $('.resultText')[0].innerText = 'такую букву уже вводили!'
       } else {
-        pastLetters.push(input.value)
-      $('.resultText')[0].innerText = 'проверяем..'
-      setTimeout(() => {
-        for (let i = 0; i < word.length; i++) {
-          if ( word[i] === input.value.toLowerCase()) {
-            $('.resultText')[0].innerText = 'есть такая буква!'
-            answer = answer.split(' ')
-            answer[i] = input.value.toLowerCase()
-            answer = answer.join(' ')
-            $('.answerArea')[0].innerText = answer
-            remainingLength--
-            isHit = true
-          } 
-        }
-      }, 500); 
-      setTimeout(() => {
-        losing()
-      }, 900);
+        $('.resultText')[0].innerText = 'проверяем..'
+        setTimeout(() => {
+          pastLetters.push(input.value)
+          for (let i = 0; i < word.length; i++) {
+            if ( word[i] === input.value.toLowerCase()) {
+              $('.resultText')[0].innerText = 'есть такая буква!'
+              answer = answer.split(' ')
+              answer[i] = input.value.toLowerCase()
+              answer = answer.join(' ')
+              $('.answerArea')[0].innerText = answer
+              remainingLength--
+              isHit = true
+            } 
+          }
+        }, 500); 
+        setTimeout(() => {
+          losing()
+        }, 900);
       }
     }
   } else {
@@ -198,12 +201,105 @@ $(document).ready( () => {
 
 
 
+// Игра Найди клад
+// __________________________________________________
+
+
+let mapRezult = $('.map-rezult')[0]
+let map =$('.map')
+let mapWidth = Math.floor(map.width())
+let mapHeight = Math.floor(map.height())
+
+let trove = {
+  x: Math.floor(Math.random() * mapWidth * 0.98) + 10,
+  y: Math.floor(Math.random() * mapHeight * 0.98) + 10
+}
+
+let rezulColors = (node, bgColor, textColor)  => {
+  node.style.backgroundColor = bgColor
+  node.style.color = textColor
+}
+
+let rezult = (distance) => {
+  if (distance < 30) { 
+    rezulColors(mapRezult,'#4A653E','#fff')
+    return 'Вы победили!' 
+  }
+  if (distance > 30 && distance <= 50) {
+    rezulColors(mapRezult,'#871E1E','#fff')
+    return 'Горячее!!!'
+  }
+  if (distance > 50 && distance <= 125) {
+    rezulColors(mapRezult,'#D0A342','#fff')
+    return 'Горячо!'
+  }
+  if (distance > 125 && distance <= 200) {
+    rezulColors(mapRezult,'#DCDCAA','#000')
+    return 'Тепло'
+  }
+  if (distance > 200 && distance <= 250) {
+    rezulColors(mapRezult,'#009687','#fff')
+    return 'Прохладно :('
+  }
+  if (distance > 250 && distance <= 350) {
+    rezulColors(mapRezult,'#007ACC','#fff')
+    return 'Холодно!'
+  }
+  if (distance > 350) {
+    rezulColors(mapRezult,'#294A6E','#fff')
+    return 'Дубэо!!!'
+  }
+}
+let drawCircle = (event) => {
+    $('<div class="cursor">')
+      .css({
+        top: event.pageY- 55,
+        left: event.pageX - 15
+      })
+      .appendTo($('.map-img'))
+      .on('animationend webkitAnimationEnd', function (event) {
+        $(this).remove();
+      });
+}
+ 
+let getDistance = (e, target) => {
+  let distanceX = e.offsetX - target.x
+  let distanceY = e.offsetY - target.y
+  return Math.round(Math.sqrt(distanceX ** 2 + distanceY ** 2))
+}
+map.click((e) => {
+  $('.map-text').fadeIn(200).fadeOut(500)
+  drawCircle(e)
+  let distance = getDistance(e, trove)
+  let rezultText = rezult(distance)
+  mapRezult.innerText = rezultText
+})
+
+
+// Конструкторы
+// __________________________________________________
+
+let Car = function(x,y)  {
+  this.x = x;
+  this.y = y
+}
 
 
 
+Car.prototype.draw = function() {
+  let carHtml = `<img src="https://ih1.redbubble.net/image.738209654.7447/st,small,507x507-pad,600x600,f8f8f8.u5.jpg">`
 
+  this.carElement = $(carHtml)
 
+  this.carElement.css({
+    position: "relative",
+    left: this.x,
+    top: this.y,
+    width: "100px"
+  })
 
+  $(".drawCar").append(this.carElement)
+}
 
-
-
+let tesla = new Car(150,10)
+tesla.draw()
