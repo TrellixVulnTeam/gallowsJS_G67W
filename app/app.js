@@ -41,12 +41,19 @@ function clear() {
   }, 900);
 }
 
+function answerStyles(bgColor) {
+  $('.answerArea')[0].style.padding = "0 10px"
+  $('.answerArea')[0].style.backgroundColor = bgColor
+  $('.answerArea')[0].style.color = "#FFFFFF"
+}
+
 function winning() {
   setTimeout(() => {
     if (remainingLength === 0) { 
       $('.resultText')[0].innerText = 'Вы победили!';
       pastLetters = []
       aliveMan()
+      answerStyles('#63A80A')
     }
     
   }, 900); 
@@ -108,12 +115,14 @@ function losing() {
       ctx.lineTo(271,240)
       ctx.stroke()
       ctx.beginPath()
-      ctx.fillStyle = 'red'
+      ctx.fillStyle = '#DC3545'
       moveTo(250,70)
       ctx.arc(251,90,20,Math.PI * 1.5,Math.PI * 3.5,false)
       ctx.fill()
       $('.resultText')[0].innerText = `Вы проиграли`
+      $('.answerArea')[0].innerText = word.split('').join(' ')
       pastLetters = []
+      answerStyles('#DC3545')
     }
     $('.resultText')[0].innerText = `Ошибка! Осталось ${motion} попыток`
   }
@@ -124,7 +133,7 @@ function aliveMan() {
   ctx.fillRect(200,65,100,200)
   ctx.beginPath()
   // ctx.cleatRect(250,70,100,200)
-  ctx.strokeStyle = 'green'
+  ctx.strokeStyle = '#63A80A'
   ctx.moveTo(280,370)
   ctx.lineTo(300,330)
   ctx.lineTo(320,370)
