@@ -69,6 +69,32 @@
       <div class="col drawCar"></div>
     </div>
   </div>
+  <div class="container-fluid"><div class="wrap bg-dark"></div></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12"><h3>Canvas</h3></div>
+      <div class="col-6"><canvas id="snowman"></canvas></div> 
+      <div class="col-6"><canvas id="points"></canvas></div>
+      <div class="col-6 offset-6">
+        <div class="col-12">Введите координаты и нажмите кнопку для отображения</div>
+        <div class="col-8 df">
+          <input type="text" class="form-control margin" placeholder="X" aria-label="X point" aria-describedby="button-addon2" id="pointX" onkeypress="onlyDigits(event)">
+          <input type="text" class="form-control margin" placeholder="Y" aria-label="Y point" aria-describedby="button-addon2" id="pointY" onkeypress="onlyDigits(event)">
+          <button class="btn btn-danger margin" type="button" id="button-addon2"  data-btn="render">Render</button>
+          <button class="btn btn-outline-danger margin" type="button" id="button-addon3"  data-btn="clear">Clear</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+ 
+  <div class="container-fluid"><div class="wrap bg-dark"></div></div>
+
 
   <link rel="stylesheet" href="css/index.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

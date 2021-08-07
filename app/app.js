@@ -312,3 +312,105 @@ Car.prototype.draw = function() {
 
 let tesla = new Car(150,10)
 tesla.draw()
+
+
+
+
+
+
+
+
+
+
+
+
+// _________________________________________
+// Рисуем снеговика
+
+const snowManCanvas = document.querySelector('#snowman')
+let snm = snowManCanvas.getContext('2d')
+snm.strokeStyle = '#0e4af0'
+snm.fillStyle = '#DC3545'
+snm.lineWidth = 0.33
+// snm.beginPath()
+// snm.moveTo(100,5)
+// snm.lineTo(100,20)
+// snm.stroke()
+  
+const drawSnowman = (pageX, pageY) => {
+  const strokeCircle = function (x,y, radius) {
+    snm.beginPath()
+    snm.arc(x, y, radius, 0, Math.PI * 2, false)
+    snm.stroke()
+  }
+  const fillCircle = function (x,y, radius) {
+    snm.beginPath()
+    snm.arc(x, y, radius, 0, Math.PI * 2, false)
+    snm.fill()
+  }
+  strokeCircle(pageX, pageY, 15)
+  strokeCircle(pageX, pageY+40, 25)
+  strokeCircle(pageX-5, pageY-5, 3)
+  strokeCircle(pageX+5, pageY-5, 3)
+  fillCircle(pageX, pageY+3, 3)
+  strokeCircle(pageX, pageY+28, 3)
+  strokeCircle(pageX, pageY+40, 3)
+  strokeCircle(pageX, pageY+53, 3)
+}
+
+  snowManCanvas.addEventListener('mousemove', event => {
+    if (event.offsetX % 1.5 === 0) {
+      setTimeout(() => {
+        drawSnowman(event.offsetX, event.offsetY)
+      }, 300);
+    }
+  })
+
+
+
+  // ____________________________________________________
+  // рисуем по массиву
+
+const pointsArr = document.querySelector('#points')
+let pnts = pointsArr.getContext('2d')
+pnts.lineWidth = 1
+pnts.strokeStyle = '#1E1E1E'
+let mysteryPoints = [[]]
+
+function addPoint() {
+  mysteryPoints.push([+nputX.value, +inputY.value])
+  console.log('🚀 ~ addPoint ~ mysteryPoints', mysteryPoints);
+}
+
+function onlyDigits(event) {
+  if ("QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiop[]asdfghjkl{}|\":;'zxcvbnm`~<>?!@#$%^&*()_+=-\\/., ".indexOf(event.key) != -1)
+    event.preventDefault();
+}
+  
+
+addEventListener('click', (event) => {
+  const inputX = document.getElementById(`pointX`)
+  const inputY = document.getElementById(`pointY`)
+  const btn = event.target.dataset.btn
+
+  if(btn === 'render'  && inputX.value && inputY.value) {
+    
+    const i = mysteryPoints.length - 1
+    pnts.beginPath()
+    pnts.moveTo(mysteryPoints[i][0], mysteryPoints[i][1])
+    pnts.lineTo(+inputX.value, +inputY.value)
+    pnts.stroke()   
+    mysteryPoints.push([+inputX.value, +inputY.value])
+
+  } else if (btn === 'render' && (!inputX.value || inputY.value)) {
+    console.log('Введите координаты X и Y');
+  } 
+  if (btn === 'clear') {
+    pnts.clearRect(0,0,500,300)
+  }
+})
+  
+
+
+
+  
