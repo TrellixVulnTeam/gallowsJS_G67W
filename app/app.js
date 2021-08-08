@@ -377,11 +377,6 @@ pnts.lineWidth = 1
 pnts.strokeStyle = '#1E1E1E'
 let mysteryPoints = [[]]
 
-function addPoint() {
-  mysteryPoints.push([+nputX.value, +inputY.value])
-  console.log('🚀 ~ addPoint ~ mysteryPoints', mysteryPoints);
-}
-
 function onlyDigits(event) {
   if ("QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiop[]asdfghjkl{}|\":;'zxcvbnm`~<>?!@#$%^&*()_+=-\\/., ".indexOf(event.key) != -1)
     event.preventDefault();
@@ -392,19 +387,24 @@ addEventListener('click', (event) => {
   const inputX = document.getElementById(`pointX`)
   const inputY = document.getElementById(`pointY`)
   const btn = event.target.dataset.btn
+  const labelPoint = document.querySelector('#poinatLabel')
+  const i = mysteryPoints.length - 1
 
-  if(btn === 'render'  && inputX.value && inputY.value) {
-    
-    const i = mysteryPoints.length - 1
+  if (btn === 'render' && mysteryPoints[i][0] == inputX.value && mysteryPoints[i][1] == inputY.value) {
+    labelPoint.innerText = "Введите новые координаты1"
+  } else if(btn === 'render'  && inputX.value && inputY.value) {
+    labelPoint.innerText = ' '
     pnts.beginPath()
     pnts.moveTo(mysteryPoints[i][0], mysteryPoints[i][1])
     pnts.lineTo(+inputX.value, +inputY.value)
     pnts.stroke()   
     mysteryPoints.push([+inputX.value, +inputY.value])
-
+    inputX.value = ' '
+    inputY.value = ' '
   } else if (btn === 'render' && (!inputX.value || inputY.value)) {
-    console.log('Введите координаты X и Y');
+    labelPoint.innerText = 'Заполните поля!'
   } 
+  
   if (btn === 'clear') {
     pnts.clearRect(0,0,500,300)
   }
@@ -412,5 +412,122 @@ addEventListener('click', (event) => {
   
 
 
+// ____________________________________________________
+// отскакивающий мячик
 
-  
+
+let Ball = function() {
+  this.x = 100;
+  this.y = 100;
+  this.xSpeed = -5;
+  this.ySpeed = 4
+}
+let ballArea = document.getElementById('ball')
+let bll = ballArea.getContext('2d')
+
+
+let circle = function(x,y, radius, fillCircle) {
+  bll.beginPath();
+  bll.fillStyle = '#DC3545';
+  bll.strokeStyle = '#DC3545';
+  bll.arc(x,y, radius, 0, 2 * Math.PI, false)
+  if(fillCircle) {
+    bll.fill()
+  } else {
+    bll.stroke()
+  }
+}
+
+Ball.prototype.draw = function() {
+  circle(this.x, this.y, 12, true)
+  circleNew(this.x, this.y, 12, true)
+}
+ 
+Ball.prototype.move = function() {
+  this.x += this.xSpeed;
+  this.y += this.ySpeed
+}
+
+Ball.prototype.checkCollision = function() {
+  if(this.x - 10 < 0 || this.x + 10 > 400) {
+    this.xSpeed = -this.xSpeed
+  }
+  if(this.y - 10 < 0 || this.y + 10 > 200) {
+    this.ySpeed = -this.ySpeed
+  }
+}
+
+const ball = new Ball()
+
+setInterval(() => {
+  bll.clearRect(0,0,400,200)
+
+  ball.draw()
+  ball.move()
+  ball.checkCollision()
+
+}, 30);
+
+
+
+
+
+// ____________________________________________________
+  // отскакивающий мячик с управлением
+
+let gameBallArea = document.getElementById('gameBall')
+let gbll = gameBallArea.getContext('2d')
+
+let circleNew = function (x,y,radius, fillCircle) {
+  gbll.beginPath()
+  gbll.fillStyle = '#DC3545';
+  gbll.strokeStyle = '#DC3545';
+  gbll.arc(x,y, radius, 0, 2 * Math.PI, false)
+  if(fillCircle) {
+    gbll.fill()
+  } else {
+    gbll.stroke()
+  }
+}
+Ball.prototype.setDirection = function (direction) {
+  if (direction === 'up' && this.ySpeed > -15) {
+    this.ySpeed -= 3
+  } else  if (direction === 'down' && this.ySpeed < 15) {
+    this.ySpeed += 3
+  }
+  if (direction === 'left' && this.xSpeed > -15) {
+    this.xSpeed -= 3;
+  } else if (direction === 'right' && this.xSpeed < 15) {
+    this.xSpeed += 3;
+  }
+  if (direction === 'stop') {
+    this.xSpeed = 0;
+    this.ySpeed = 0
+  }
+}
+const gameBall = new Ball()
+
+const keyActions = {
+  32: 'stop',
+  37: 'left',
+  38: 'up',
+  39: 'right',
+  40: 'down'
+}
+
+$('body').keydown(function(event) {
+  if (Object.keys(keyActions).includes(event.keyCode + '')) {
+    event.preventDefault()
+  }
+  let direction = keyActions[event.keyCode]
+  ball.setDirection(direction)
+})
+
+setInterval(() => {
+  gbll.clearRect(0,0,400,200)
+
+  ball.draw()
+  ball.move()
+  ball.checkCollision()
+
+}, 30);
